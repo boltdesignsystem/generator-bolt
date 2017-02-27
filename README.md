@@ -1,5 +1,5 @@
 # generator-pegakit [![NPM version][npm-image]][npm-url] [![Build Status][travis-image]][travis-url] [![Dependency Status][daviddm-image]][daviddm-url] [![Coverage percentage][coveralls-image]][coveralls-url]
-> A yeoman generator to create pegakit repository
+> A Yeoman generator for creating standalone PegaKit components
 
 ## Installation
 
