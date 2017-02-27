@@ -1,0 +1,30 @@
+{
+  "name": "<%= props.packageName %>",
+  "version": "0.0.0",
+  "description": "<%= props.description %>",
+  "scripts": {
+    "test": "gulp",
+    "start": "gulp watch"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+<%= props.url %>.git"
+  },
+  "author": "<%= props.author_name %> <<%= props.author_mail %>>",
+  "license": "MIT",
+  "bugs": {
+    "url": "<%= props.url %>/issues"
+  },
+  "keywords": [
+    "scss",
+    "css",<% if (props.twig) { %>
+    "twig",<% } %><% if (props.twig) { %>
+    "html",<% } %><% if (props.javascript) { %>
+    "javascript",<% } %><% if (props.javascript) { %>
+    "js",<% } %>
+    "pegakit",
+    "<%= props.packageName %>",
+    "<%= props.names.kebabcase.singular %>"
+  ],
+  "homepage": "<%= props.url %>#readme"
+}

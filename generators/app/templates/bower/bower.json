@@ -1,0 +1,41 @@
+{
+  "name": "<%= props.packageName %>",
+  "homepage": "<%= props.url %>",
+  "authors": [
+    "<%= props.author_name %> <<%= props.author_mail %>>"
+  ],
+  "description": "<%= props.description %>",
+  "main": [
+    "<%= folders.src %>/scss/<%= props.names.kebabcase.plural %>.scss",<% if (props.twig) { %>
+    "<%= folders.src %>/twig/<%= props.names.kebabcase.singular %>.html.twig",<% } %><% if (props.javascript) { %>
+    "<%= folders.dest %>/javascript/<%= props.names.kebabcase.plural %>.js",<% } %>
+    "injector.json"
+  ],
+  <% if (props.javascript) { %>"moduleType": "globals",<% } %>
+  "keywords": [
+    "scss",
+    "css",<% if (props.twig) { %>
+    "twig",<% } %><% if (props.twig) { %>
+    "html",<% } %><% if (props.javascript) { %>
+    "javascript",<% } %><% if (props.javascript) { %>
+    "js",<% } %>
+    "pegakit",
+    "<%= props.packageName %>",
+    "<%= props.names.kebabcase.singular %>"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "node_modules",
+    "bower_components",
+    "test",
+    ".bowerrc",
+    ".gitignore",
+    "gulpfile.js",
+    "package.json",
+    "sache.json"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+<%= props.url %>.git"
+  }
+}
