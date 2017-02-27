@@ -2,7 +2,7 @@
   "name": "generator-pegakit",
   "version": "0.1.0",
   "description": "A yeoman generator for creating pegakit components",
-  "homepage": "https://github.com/pegasystems/generator-pegakit",
+  "homepage": "https://github.com/pega-digital/generator-pegakit",
   "author": {
     "name": "Salem Ghoweri",
     "email": "salem.ghoweri@pega.com"
@@ -43,7 +43,7 @@
       "mocha": true
     }
   },
-  "repository": "sghoweri/generator-pegakit",
+  "repository": "pega-digital/generator-pegakit",
   "scripts": {
     "prepublish": "gulp prepublish",
     "test": "gulp"
