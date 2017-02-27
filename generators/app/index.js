@@ -22,7 +22,7 @@ module.exports = yeoman.Base.extend({
 
     // Have Yeoman greet the user.
     this.log(yosay(
-      'It\'s time to make some ' + chalk.red('pegakit') + '!'
+      'It\'s time to make some ' + chalk.red('PegaKit Components') + '!'
     ));
 
     this.folders = {
@@ -38,7 +38,7 @@ module.exports = yeoman.Base.extend({
       {
         type: 'input',
         name: 'name',
-        message: 'What is the name of your pegakit component ?',
+        message: 'What is the name of your PegaKit UI Component (ex. `Button`)?',
         required: true,
         validate: function(input) {
           if (typeof input !== 'string') {
@@ -92,7 +92,7 @@ module.exports = yeoman.Base.extend({
         message: 'What is the description of your component ?',
         required: true,
         default: function(answers) {
-          return 'The official PegaKit Component for ' + this.names.lowercase.plural;
+          return 'The default ' + this.names.pascalcase.singular + ' component. Part of PegaKit\'s pre-packaged UI Toolkit.';
         }.bind(this),
         validate: function(input) {
           if (typeof input !== 'string') {
@@ -111,7 +111,7 @@ module.exports = yeoman.Base.extend({
         name: 'url',
         message: 'What is the url of the repository ?',
         default: function(answers) {
-          return 'https://github.com/FriendsOfPegaKit/' + this.names.pascalcase.plural;
+          return 'https://github.com/pega-digital/components.' + this.names.lowercase.plural;
         }.bind(this),
         validate: function(input) {
           if (typeof input !== 'string' || input.length === 0) {
@@ -145,7 +145,7 @@ module.exports = yeoman.Base.extend({
         type: 'input',
         name: 'author_name',
         message: 'What is your name ?',
-        default: 'Loïc Goyet',
+        default: 'Salem Ghoweri',
         validate: function(input) {
           if (typeof input !== 'string' || input.length === 0) {
             this.log(chalk.red('You must pass a valid string !'));
@@ -160,7 +160,7 @@ module.exports = yeoman.Base.extend({
         type: 'input',
         name: 'author_mail',
         message: 'What is your mail address ?',
-        default: 'loic@troopers.email',
+        default: 'salem.ghoweri@pega.com',
         validate: function(input) {
           var mailregex = /\S+@\S+\.\S+/;
           if (!mailregex.test(input)) {
