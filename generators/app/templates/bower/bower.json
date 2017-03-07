@@ -6,13 +6,17 @@
   ],
   "description": "<%= props.description %>",
   "main": [
-    "<%= folders.src %>/scss/<%= props.names.kebabcase.plural %>.scss",<% if (props.twig) { %>
-    "<%= folders.src %>/twig/<%= props.names.kebabcase.singular %>.html.twig",<% } %><% if (props.javascript) { %>
-    "<%= folders.dest %>/javascript/<%= props.names.kebabcase.plural %>.js",<% } %>
-    "injector.json"
+    "<%= folders.src %>_components.<%= props.names.kebabcase.default %>.scss",<% if (props.twig) { %>
+    "<%= folders.src %><%= props.names.kebabcase.default %>.twig",<% } %><% if (props.javascript) { %>
+    "<%= folders.dest %><%= props.names.kebabcase.default %>.js",<% } %>
   ],
   <% if (props.javascript) { %>"moduleType": "globals",<% } %>
   "keywords": [
+    "design system",
+    "ui-toolkit",
+    "bem",
+    "itcss",
+    "bemit",
     "scss",
     "css",<% if (props.twig) { %>
     "twig",<% } %><% if (props.twig) { %>
@@ -21,7 +25,7 @@
     "js",<% } %>
     "pegakit",
     "<%= props.packageName %>",
-    "<%= props.names.kebabcase.singular %>"
+    "<%= props.names.kebabcase.default %>"
   ],
   "license": "MIT",
   "ignore": [
@@ -31,11 +35,10 @@
     ".bowerrc",
     ".gitignore",
     "gulpfile.js",
-    "package.json",
-    "sache.json"
+    "package.json"
   ],
   "repository": {
     "type": "git",
-    "url": "git+<%= props.url %>.git"
+    "url": "git+<%= props.url %>"
   }
 }

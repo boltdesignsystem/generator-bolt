@@ -2,20 +2,21 @@
   "name": "<%= props.packageName %>",
   "version": "0.0.0",
   "description": "<%= props.description %>",
-  "scripts": {
-    "test": "gulp",
-    "start": "gulp watch"
-  },
   "repository": {
     "type": "git",
-    "url": "git+<%= props.url %>.git"
+    "url": "git+<%= props.url %>"
   },
   "author": "<%= props.author_name %> <<%= props.author_mail %>>",
   "license": "MIT",
   "bugs": {
-    "url": "<%= props.url %>/issues"
+    "url": "<%= props.gitUrl %>/issues"
   },
   "keywords": [
+    "design system",
+    "ui-toolkit",
+    "bem",
+    "itcss",
+    "bemit",
     "scss",
     "css",<% if (props.twig) { %>
     "twig",<% } %><% if (props.twig) { %>
@@ -24,7 +25,6 @@
     "js",<% } %>
     "pegakit",
     "<%= props.packageName %>",
-    "<%= props.names.kebabcase.singular %>"
-  ],
-  "homepage": "<%= props.url %>#readme"
+    "<%= props.names.kebabcase.default %>"
+  ]
 }

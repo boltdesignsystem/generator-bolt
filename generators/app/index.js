@@ -24,6 +24,8 @@ module.exports = yeoman.Base.extend({
     this.log(yosay(
       "Let's build some " + chalk.red("\nPegaKit") + " components!"
     ));
+    
+    this.gitUrl = 'https://github.com/pega-digital/pegakit';
 
     this.folders = {
       src: 'source/_patterns',
@@ -161,9 +163,10 @@ module.exports = yeoman.Base.extend({
       {
         type: 'input',
         name: 'url',
-        message: 'What is the url of the repository ?',
+        message: 'What is the url of the repository?',
+        required: true,
         default: function(answers) {
-          return 'https://github.com/pega-digital/pegakit/tree/master/source/_patterns/' + this.patternType + '/' + this.names.lowercase.default;
+          return this.gitUrl + '/tree/master/source/_patterns/' + this.patternType + '/' + this.names.lowercase.default;
         }.bind(this),
         validate: function(input) {
           if (typeof input !== 'string' || input.length === 0) {
@@ -171,8 +174,7 @@ module.exports = yeoman.Base.extend({
             return false;
           }
           return true;
-        }.bind(this),
-        required: true
+        }.bind(this)
       },
 
       {
@@ -231,7 +233,7 @@ module.exports = yeoman.Base.extend({
         required: true,
         default: true,
         message: function(answers) {
-          return 'And what about some twig template ? (located at `' + this.folders.src + '/' + this.patternType + '/' + this.names.kebabcase.default + '.twig`)';
+          return 'And what about some twig template ? (located at `' + this.folders.src + '/' + this.patternType + '/' + this.names.kebabcase.default + '/' + this.names.kebabcase.default + '.twig`)';
         }.bind(this),
       },
       
@@ -257,6 +259,7 @@ module.exports = yeoman.Base.extend({
     ]).then(function (props) {
       this.props = props;
       this.props.names = this.names;
+      this.props.gitUrl = this.gitUrl;
     }.bind(this));
   },
 

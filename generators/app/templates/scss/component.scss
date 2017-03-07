@@ -3,9 +3,14 @@
    ========================================================================== */
 
 /**
-  * Short intro about your UI component
-  */
+ * Long-form comment.
+ *
+ * This spans multiple lines and is also constrained to no longer than 80
+ * characters in width.
+ *
+ * 1. Provide line-comments like this.
+ */
 
 .c-<%= props.names.lowercase.default %> {
-  //Styles go here.
+  //Styles go here. /* [1] */
 }
