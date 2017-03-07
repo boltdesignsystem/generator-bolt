@@ -283,6 +283,12 @@ module.exports = yeoman.Base.extend({
           this.destinationPath(this.folders.src + '/' + this.props.names.kebabcase.default + '.twig'),
           { props: this.props }
         );
+        
+        this.fs.copyTpl(
+          this.templatePath('twig/component.yml'),
+          this.destinationPath(this.folders.src + '/' + this.props.names.kebabcase.default + '.yml'),
+          { props: this.props }
+        );
       }
     },
 
@@ -437,48 +443,48 @@ module.exports = yeoman.Base.extend({
     process.chdir(elementDir);
     
     var npmDevDependencies = [
-      'gulp',
-      'gulp-size',
-      'gulp-load-plugins',
-      'gulp-prettify',
-      'run-sequence',
-      'browser-sync',
-      'gulp-notify',
-      'gulp-sourcemaps',
-      'gulp-sass',
-      'gulp-autoprefixer',
-      'gulp-cssmin',
-      'gulp-rename',
-      'babel',
-      'babel-cli',
-      'babel-core',
-      'babel-loader',
-      'babel-preset-es2015',
+      // 'gulp',
+      // 'gulp-size',
+      // 'gulp-load-plugins',
+      // 'gulp-prettify',
+      // 'run-sequence',
+      // 'browser-sync',
+      // 'gulp-notify',
+      // 'gulp-sourcemaps',
+      // 'gulp-sass',
+      // 'gulp-autoprefixer',
+      // 'gulp-cssmin',
+      // 'gulp-rename',
+      // 'babel',
+      // 'babel-cli',
+      // 'babel-core',
+      // 'babel-loader',
+      // 'babel-preset-es2015',
     ];
 
     var bowerDependencies = [
-      'pegakit-core',
-      'sassy-maps'
+      // 'pegakit-core',
+      // 'sassy-maps'
     ];
 
     if (this.props.twig) {
       npmDevDependencies.push(
-        'gulp-twig',
-        'gulp-ext-replace'
+        // 'gulp-twig',
+        // 'gulp-ext-replace'
       );
     }
 
     if (this.props.javascript) {
       npmDevDependencies.push(
-        'gulp-babel'
+        // 'gulp-babel'
       );
     }
 
     if (!this.options.noinstall) {
-      this.npmInstall(['pegakit-core'], { 'save': true }, function() {
+      this.npmInstall([''], { 'save': true }, function() {
         this.npmInstall(npmDevDependencies, { 'saveDev': true }, function() {
           this.runInstall('yarn', null, function() {
-            this.bowerInstall(['pegakit-core'], { 'save': true });
+            // this.bowerInstall(['pegakit-css'], { 'save': true });
           }.bind(this));
         }.bind(this));
       }.bind(this));

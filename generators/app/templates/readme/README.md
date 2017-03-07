@@ -40,10 +40,10 @@ The main scss file to include to your main `.scss` file is located at the `./<%=
 The javascript file is located at the `./<%= folders.dest %>/javascript/<%= props.names.kebabcase.plural %>.js`. The optimized and minified version is available at `<%= folders.dest %>/javascript/<%= props.names.kebabcase.plural %>.min.js`.<% } %>
 
 <% if (props.twig) { %>#### *Twig files*
-The twig file is located at the `./<%= folders.src %>/twig/<%= props.names.kebabcase.singular %>.html.twig`.<% } %>
+The twig file is located at the `./<%= folders.src %><%= props.names.kebabcase.singular %>.twig`.<% } %>
 
 ## Usage
-to be written
+@TODO: Usage info.
 
 ## License
-MIT © [PegaKit](pegakit.github.io)
+MIT © Pegasystems

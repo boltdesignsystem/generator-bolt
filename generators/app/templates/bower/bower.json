@@ -9,6 +9,7 @@
     "<%= folders.src %>_components.<%= props.names.kebabcase.default %>.scss",<% if (props.twig) { %>
     "<%= folders.src %><%= props.names.kebabcase.default %>.twig",<% } %><% if (props.javascript) { %>
     "<%= folders.dest %><%= props.names.kebabcase.default %>.js",<% } %>
+    "injector.json"
   ],
   <% if (props.javascript) { %>"moduleType": "globals",<% } %>
   "keywords": [
