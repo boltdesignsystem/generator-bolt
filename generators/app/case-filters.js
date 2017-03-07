@@ -24,6 +24,10 @@ module.exports = function() {
   config.toLowerCase = function(str) {
     return str.toLowerCase();
   }
+  
+  config.toUpperCase = function(str) {
+    return str.toUpperCase();
+  }
 
   config.toCapitalCase = function(str) {
     return str

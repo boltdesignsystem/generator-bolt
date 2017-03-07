@@ -1,6 +1,11 @@
-@import 'mixins/mixin-example';
+/* ==========================================================================
+   #<%= props.names.uppercase.singular %> COMPONENT
+   ========================================================================== */
 
-@import 'variables/synthax';
-@import 'variables/theme';
+/**
+  * Short intro about your UI component
+  */
 
-@import 'statements';
+.c-<%= props.names.lowercase.singular %> {
+  //Styles go here.
+}

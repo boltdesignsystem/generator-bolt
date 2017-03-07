@@ -26,7 +26,7 @@ module.exports = yeoman.Base.extend({
     ));
 
     this.folders = {
-      src: 'src',
+      src: 'source/_patterns/',
       dest: 'dest',
       test: 'test',
       styleguide: 'styleguide',
@@ -73,6 +73,10 @@ module.exports = yeoman.Base.extend({
               singular: caseFilter.toLowerCase(singular),
               plural: caseFilter.toLowerCase(plural),
             },
+            uppercase: {
+              singular: caseFilter.toUpperCase(singular),
+              plural: caseFilter.toUpperCase(plural),
+            },
             capitalcase: {
               singular: caseFilter.toCapitalCase(singular),
               plural: caseFilter.toCapitalCase(plural),
@@ -84,6 +88,9 @@ module.exports = yeoman.Base.extend({
           }
 
           return input.charAt(0).toUpperCase() + input.slice(1).replace(' ', '-');
+          
+          patternName = this.names.lowercase.plural;
+          
         }.bind(this),
       },
       {
@@ -243,40 +250,39 @@ module.exports = yeoman.Base.extend({
 
   writing: {
     scss: function() {
+      
+      this.folders.src = this.folders.src + this.patternType + '/' + this.props.names.kebabcase.plural + '/';
+      
       this.fs.copyTpl(
         this.templatePath('scss/component.scss'),
-        this.destinationPath(this.folders.src + '/scss/' + this.props.names.kebabcase.plural + '.scss'),
+        this.destinationPath(this.folders.src + '_components.' + this.props.names.kebabcase.plural + '.scss'),
         { props: this.props }
       );
 
-      this.fs.copyTpl(
-        this.templatePath('scss/variables/_synthax.scss'),
-        this.destinationPath(this.folders.src + '/scss/variables/_synthax.scss'),
-        { props: this.props }
-      );
+      // this.fs.copyTpl(
+      //   this.templatePath('scss/variables/_synthax.scss'),
+      //   this.destinationPath(this.folders.src + '/scss/variables/_synthax.scss'),
+      //   { props: this.props }
+      // );
+      // 
+      // this.fs.copyTpl(
+      //   this.templatePath('scss/variables/_theme.scss'),
+      //   this.destinationPath(this.folders.src + '/scss/variables/_theme.scss'),
+      //   { props: this.props }
+      // );
+      // 
+      // this.fs.copyTpl(
+      //   this.templatePath('scss/mixins/_mixin-example.scss'),
+      //   this.destinationPath(this.folders.src + '/scss/mixins/_mixin-example.scss'),
+      //   { props: this.props }
+      // );
+      // 
+      // this.fs.copyTpl(
+      //   this.templatePath('scss/_statements.scss'),
+      //   this.destinationPath(this.folders.src + '/scss/_statements.scss'),
+      //   { props: this.props }
+      // );
 
-      this.fs.copyTpl(
-        this.templatePath('scss/variables/_theme.scss'),
-        this.destinationPath(this.folders.src + '/scss/variables/_theme.scss'),
-        { props: this.props }
-      );
-
-      this.fs.copyTpl(
-        this.templatePath('scss/mixins/_mixin-example.scss'),
-        this.destinationPath(this.folders.src + '/scss/mixins/_mixin-example.scss'),
-        { props: this.props }
-      );
-
-      this.fs.copyTpl(
-        this.templatePath('scss/_statements.scss'),
-        this.destinationPath(this.folders.src + '/scss/_statements.scss'),
-        { props: this.props }
-      );
-
-      this.fs.copy(
-        this.templatePath('scss/.scss-lint.yml'),
-        this.destinationPath('.scss-lint.yml')
-      );
     },
 
     twig: function() {
