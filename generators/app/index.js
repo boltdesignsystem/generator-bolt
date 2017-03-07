@@ -375,13 +375,6 @@ module.exports = yeoman.Base.extend({
       );
     },
 
-    license: function() {
-      this.fs.copy(
-        this.templatePath('LICENSE'),
-        this.destinationPath('LICENSE')
-      );
-    },
-
     bower: function() {
       this.fs.copyTpl(
         this.templatePath('bower/bower.json'),
@@ -409,23 +402,6 @@ module.exports = yeoman.Base.extend({
         {
           props: this.props,
           folders: this.folders,
-        }
-      );
-    },
-
-    editorconfig: function() {
-      this.fs.copy(
-        this.templatePath('editorconfig/.editorconfig'),
-        this.destinationPath('.editorconfig')
-      );
-    },
-
-    git: function() {
-      this.fs.copyTpl(
-        this.templatePath('git/.gitignore'),
-        this.destinationPath('.gitignore'),
-        {
-          folders: this.folders
         }
       );
     },
