@@ -22,7 +22,7 @@ module.exports = yeoman.Base.extend({
 
     // Have Yeoman greet the user.
     this.log(yosay(
-      'It\'s time to make some ' + chalk.red('PegaKit Components') + '!'
+      "Let's build some " + chalk.red("\nPegaKit") + " components!"
     ));
 
     this.folders = {
@@ -37,9 +37,10 @@ module.exports = yeoman.Base.extend({
     return this.prompt([
       {
         type: 'input',
-        name: 'name',
-        message: 'What is the name of your PegaKit UI Component (ex. `Button`)?',
+        name: 'names',
+        message: 'What is the name of your PegaKit pattern? (ex. `button` or `ui-list`)',
         required: true,
+        default: "pattern-name",
         validate: function(input) {
           if (typeof input !== 'string') {
             this.log(chalk.red('You must pass a valid string !'));
@@ -85,10 +86,42 @@ module.exports = yeoman.Base.extend({
           return input.charAt(0).toUpperCase() + input.slice(1).replace(' ', '-');
         }.bind(this),
       },
+      {
+        type: 'list',
+        name: 'patternType',
+        message: 'What type of pattern is this?',
+        require: true,
+        default: '01-atoms',
+        choices: [
+          {
+            name: 'atom',
+            value: '01-atoms'
+          },
+          {
+              name: 'molecule',
+              value: '02-molecules'
+          },
+          {
+            name: 'organism',
+            value: '03-organisms'
+          },
+          {
+            name: 'template',
+            value: '04-templates',
+          },
+          {
+            name: 'page',
+            value: '05-pages'
+          }
+        ],
+        filter: function(input) {
+          this.patternType = input;
+        }.bind(this)
+    },
 
       {
         type: 'input',
-        name: 'description',
+        name: 'patternDescription',
         message: 'What is the description of your component ?',
         required: true,
         default: function(answers) {
@@ -108,10 +141,10 @@ module.exports = yeoman.Base.extend({
 
       {
         type: 'input',
-        name: 'url',
+        name: 'patternUrl',
         message: 'What is the url of the repository ?',
         default: function(answers) {
-          return 'https://github.com/pega-digital/components.' + this.names.lowercase.plural;
+          return 'https://github.com/pega-digital/pegakit/tree/master/source/_patterns/' + this.patternType + '/' + this.names.lowercase.plural;
         }.bind(this),
         validate: function(input) {
           if (typeof input !== 'string' || input.length === 0) {
@@ -144,7 +177,7 @@ module.exports = yeoman.Base.extend({
       {
         type: 'input',
         name: 'author_name',
-        message: 'What is your name ?',
+        message: 'What is your name?',
         default: 'Salem Ghoweri',
         validate: function(input) {
           if (typeof input !== 'string' || input.length === 0) {
@@ -159,12 +192,12 @@ module.exports = yeoman.Base.extend({
       {
         type: 'input',
         name: 'author_mail',
-        message: 'What is your mail address ?',
+        message: 'What is your email address ?',
         default: 'salem.ghoweri@pega.com',
         validate: function(input) {
           var mailregex = /\S+@\S+\.\S+/;
           if (!mailregex.test(input)) {
-            this.log(chalk.red('You must pass a valid mail !'));
+            this.log(chalk.red('Please enter a valid email address!'));
             return false;
           }
           return true;
@@ -172,25 +205,36 @@ module.exports = yeoman.Base.extend({
         required: true
       },
 
-      {
-        type: 'confirm',
-        name: 'twig',
-        required: true,
-        default: false,
-        message: function(answers) {
-          return 'And what about some twig template ? (located at `' + this.folders.src + '/twig/' + this.names.kebabcase.plural + '.html.twig`)';
-        }.bind(this),
-      },
+      
+      // {
+      //   type: 'confirm',
+      //   name: 'twig',
+      //   required: true,
+      //   default: false,
+      //   message: function(answers) {
+      //     return 'And what about some twig template ? (located at `' + this.folders.src + '/twig/' + this.names.kebabcase.plural + '.html.twig`)';
+      //   }.bind(this),
+      // },
+      
+      // {
+      //   type: 'confirm',
+      //   name: 'sass',
+      //   required: true,
+      //   default: false,
+      //   message: function(answers) {
+      //     return 'And what about some twig template ? (located at `' + this.folders.src + '/twig/' + this.names.kebabcase.plural + '.html.twig`)';
+      //   }.bind(this),
+      // },
 
-      {
-        type: 'confirm',
-        name: 'javascript',
-        required: true,
-        default: false,
-        message: function(answers) {
-          return 'Some javascript file with it ? (located at `' + this.folders.src + '/javascript/' + this.names.kebabcase.plural + '.js`)';
-        }.bind(this),
-      },
+      // {
+      //   type: 'confirm',
+      //   name: 'javascript',
+      //   required: true,
+      //   default: false,
+      //   message: function(answers) {
+      //     return 'Do you need Some javascript file with it ? (located at `' + this.folders.src + '/javascript/' + this.names.kebabcase.plural + '.js`)';
+      //   }.bind(this),
+      // },
     ]).then(function (props) {
       this.props = props;
       this.props.names = this.names;
@@ -358,17 +402,6 @@ module.exports = yeoman.Base.extend({
       );
     },
 
-    injector: function() {
-      this.fs.copyTpl(
-        this.templatePath('injector/injector.json'),
-        this.destinationPath('injector.json'),
-        {
-          props: this.props,
-          folders: this.folders,
-        }
-      );
-    },
-
     readme: function() {
       this.fs.copyTpl(
         this.templatePath('readme/README.md'),
@@ -410,17 +443,6 @@ module.exports = yeoman.Base.extend({
       this.fs.copy(
         this.templatePath('npm/.npmignore'),
         this.destinationPath('.npmignore')
-      );
-    },
-
-    sache: function() {
-      this.fs.copyTpl(
-        this.templatePath('sache/sache.json'),
-        this.destinationPath('sache.json'),
-        {
-          props: this.props,
-          folders: this.folders,
-        }
       );
     },
 

@@ -1,9 +1,0 @@
-{
-  "name": "<%= props.packageName %>",
-  "description": "<%= props.description %>",
-  "tags": [
-    "ui",
-    "pegakit",
-    "<%= props.names.lowercase.plural %>"
-  ]
-}
