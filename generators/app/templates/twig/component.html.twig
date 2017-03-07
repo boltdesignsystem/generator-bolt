@@ -1,4 +1,17 @@
-{# Here comes the <%= props.names.lowercase.singular %> markup #}
+{# Here comes the <%= props.names.lowercase.default %> markup #}
+{% if <%= props.names.snakecase.default %>.attributes %}
+  {% set attributes = create_attribute(<%= props.names.snakecase.default %>.attributes) %}
+{% else %}
+  {% set attributes = create_attribute() %}
+{% endif %}
 
-{% set selector_prefix = 'c-' %}
-<div class="{{ selector_prefix }}<%= props.names.kebabcase.singular %>">hello world !</div>
+
+{% set classes = [
+  'c-<%= props.names.kebabcase.default %>'
+] %}
+{% set attributes = attributes.addClass(classes) %}
+
+
+<div {{ attributes }}>
+  {{ <%= props.names.kebabcase.default %>.title }}
+</div>

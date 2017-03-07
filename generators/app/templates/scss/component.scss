@@ -1,11 +1,11 @@
 /* ==========================================================================
-   #<%= props.names.uppercase.singular %> COMPONENT
+   #<%= props.names.uppercase.default %> COMPONENT
    ========================================================================== */
 
 /**
   * Short intro about your UI component
   */
 
-.c-<%= props.names.lowercase.singular %> {
+.c-<%= props.names.lowercase.default %> {
   //Styles go here.
 }

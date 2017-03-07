@@ -1,0 +1,6 @@
+@objects
+  <%= props.names.lowercase.default %>        .c-<%= props.names.kebabcase.default %>
+
+= Main section =
+  @on *
+    <%= props.names.lowercase.default %>:

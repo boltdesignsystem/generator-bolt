@@ -26,10 +26,10 @@ module.exports = yeoman.Base.extend({
     ));
 
     this.folders = {
-      src: 'source/_patterns/',
+      src: 'source/_patterns',
       dest: 'dest',
-      test: 'test',
-      styleguide: 'styleguide',
+      test: 'tests',
+      styleguide: 'demo',
     };
   },
 
@@ -60,36 +60,48 @@ module.exports = yeoman.Base.extend({
             camelcase: {
               singular: caseFilter.toCamelCase(singular),
               plural: caseFilter.toCamelCase(plural),
+              default: caseFilter.toCamelCase(input)
             },
             pascalcase: {
               singular: caseFilter.toPascalCase(singular),
               plural: caseFilter.toPascalCase(plural),
+              default: caseFilter.toPascalCase(input)
             },
             kebabcase: {
               singular: caseFilter.toKebabCase(singular),
               plural: caseFilter.toKebabCase(plural),
+              default: caseFilter.toKebabCase(input)
             },
             lowercase: {
               singular: caseFilter.toLowerCase(singular),
               plural: caseFilter.toLowerCase(plural),
+              default: caseFilter.toLowerCase(input)
             },
             uppercase: {
               singular: caseFilter.toUpperCase(singular),
               plural: caseFilter.toUpperCase(plural),
+              default: caseFilter.toUpperCase(input)
             },
             capitalcase: {
               singular: caseFilter.toCapitalCase(singular),
               plural: caseFilter.toCapitalCase(plural),
+              default: caseFilter.toCapitalCase(input)
+            },
+            snakecase: {
+              singular: caseFilter.toSnakeCase(singular),
+              plural: caseFilter.toSnakeCase(plural),
+              default: caseFilter.toSnakeCase(input)
             },
             attachedcase: {
               singular: caseFilter.toAttachedCase(singular),
               plural: caseFilter.toAttachedCase(plural),
+              default: caseFilter.toAttachedCase(input)
             },
           }
 
           return input.charAt(0).toUpperCase() + input.slice(1).replace(' ', '-');
           
-          patternName = this.names.lowercase.plural;
+          this.patternName = this.input;
           
         }.bind(this),
       },
@@ -132,7 +144,7 @@ module.exports = yeoman.Base.extend({
         message: 'What is the description of your component ?',
         required: true,
         default: function(answers) {
-          return 'The default ' + this.names.pascalcase.singular + ' component. Part of PegaKit\'s pre-packaged UI Toolkit.';
+          return 'The default ' + this.names.pascalcase.default + ' component. Part of PegaKit\'s pre-packaged UI Toolkit.';
         }.bind(this),
         validate: function(input) {
           if (typeof input !== 'string') {
@@ -213,15 +225,15 @@ module.exports = yeoman.Base.extend({
       },
 
       
-      // {
-      //   type: 'confirm',
-      //   name: 'twig',
-      //   required: true,
-      //   default: false,
-      //   message: function(answers) {
-      //     return 'And what about some twig template ? (located at `' + this.folders.src + '/twig/' + this.names.kebabcase.plural + '.html.twig`)';
-      //   }.bind(this),
-      // },
+      {
+        type: 'confirm',
+        name: 'twig',
+        required: true,
+        default: true,
+        message: function(answers) {
+          return 'And what about some twig template ? (located at `' + this.folders.src + '/' + this.patternType + '/' + this.names.kebabcase.default + '.twig`)';
+        }.bind(this),
+      },
       
       // {
       //   type: 'confirm',
@@ -239,7 +251,7 @@ module.exports = yeoman.Base.extend({
       //   required: true,
       //   default: false,
       //   message: function(answers) {
-      //     return 'Do you need Some javascript file with it ? (located at `' + this.folders.src + '/javascript/' + this.names.kebabcase.plural + '.js`)';
+      //     return 'Do you want to include a default JS file with this component? (located at `' + this.folders.src + '/javascript/' + this.names.kebabcase.plural + '.js`)';
       //   }.bind(this),
       // },
     ]).then(function (props) {
@@ -251,37 +263,13 @@ module.exports = yeoman.Base.extend({
   writing: {
     scss: function() {
       
-      this.folders.src = this.folders.src + this.patternType + '/' + this.props.names.kebabcase.plural + '/';
+      this.folders.src = this.folders.src + '/' + this.patternType + '/' + this.props.names.kebabcase.plural + '/';
       
       this.fs.copyTpl(
         this.templatePath('scss/component.scss'),
-        this.destinationPath(this.folders.src + '_components.' + this.props.names.kebabcase.plural + '.scss'),
+        this.destinationPath(this.folders.src + '/' + '_components.' + this.props.names.kebabcase.plural + '.scss'),
         { props: this.props }
       );
-
-      // this.fs.copyTpl(
-      //   this.templatePath('scss/variables/_synthax.scss'),
-      //   this.destinationPath(this.folders.src + '/scss/variables/_synthax.scss'),
-      //   { props: this.props }
-      // );
-      // 
-      // this.fs.copyTpl(
-      //   this.templatePath('scss/variables/_theme.scss'),
-      //   this.destinationPath(this.folders.src + '/scss/variables/_theme.scss'),
-      //   { props: this.props }
-      // );
-      // 
-      // this.fs.copyTpl(
-      //   this.templatePath('scss/mixins/_mixin-example.scss'),
-      //   this.destinationPath(this.folders.src + '/scss/mixins/_mixin-example.scss'),
-      //   { props: this.props }
-      // );
-      // 
-      // this.fs.copyTpl(
-      //   this.templatePath('scss/_statements.scss'),
-      //   this.destinationPath(this.folders.src + '/scss/_statements.scss'),
-      //   { props: this.props }
-      // );
 
     },
 
@@ -289,7 +277,7 @@ module.exports = yeoman.Base.extend({
       if (this.props.twig) {
         this.fs.copyTpl(
           this.templatePath('twig/component.html.twig'),
-          this.destinationPath(this.folders.src + '/twig/' + this.props.names.kebabcase.singular + '.html.twig'),
+          this.destinationPath(this.folders.src + '/' + this.props.names.kebabcase.default + '.twig'),
           { props: this.props }
         );
       }
@@ -299,112 +287,108 @@ module.exports = yeoman.Base.extend({
       if (this.props.javascript) {
         this.fs.copyTpl(
           this.templatePath('javascript/component.js'),
-          this.destinationPath(this.folders.src + '/javascript/' + this.props.names.kebabcase.plural + '.js'),
+          this.destinationPath(this.folders.src + '/' + this.props.names.kebabcase.plural + '.js'),
           { props: this.props }
         );
 
-        this.fs.copy(
-          this.templatePath('javascript/.jshintrc.yml'),
-          this.destinationPath('.jshintrc.yml')
-        );
       }
     },
 
     test: function() {
       if (this.props.twig) {
         this.fs.copyTpl(
-          this.templatePath('test/index.html.twig'),
-          this.destinationPath(this.folders.test + '/' + this.folders.src + '/index.html.twig'),
+          this.templatePath('tests/spec/component.gspec'),
+          this.destinationPath(this.folders.src + '/' + 'tests/spec/' + this.patternType + '-' + this.props.names.kebabcase.default + '.gspec'),
           {
             props: this.props,
             folders: this.folders,
           }
         );
       } else {
-        this.fs.copyTpl(
-          this.templatePath('test/index.html'),
-          this.destinationPath(this.folders.test + '/' + this.folders.src + '/index.html'),
-          {
-            props: this.props,
-            folders: this.folders,
-          }
-        );
+        // this.fs.copyTpl(
+        //   this.templatePath('test/index.html'),
+        //   this.destinationPath(this.folders.test + '/' + this.folders.src + '/index.html'),
+        //   {
+        //     props: this.props,
+        //     folders: this.folders,
+        //   }
+        // );
       }
 
-      this.fs.copyTpl(
-        this.templatePath('test/style.scss'),
-        this.destinationPath(this.folders.test + '/' + this.folders.src + '/style.scss'),
-        {
-          props: this.props,
-          folders: this.folders,
-        }
-      );
+      // this.fs.copyTpl(
+      //   this.templatePath('test/style.scss'),
+      //   this.destinationPath(this.folders.test + '/' + this.folders.src + '/style.scss'),
+      //   {
+      //     props: this.props,
+      //     folders: this.folders,
+      //   }
+      // );
 
-      this.fs.copyTpl(
-        this.templatePath('test/pegakit-component.scss'),
-        this.destinationPath(this.folders.test + '/' + this.folders.src + '/pegakit-' + this.props.names.kebabcase.plural + '.scss'),
-        {
-          props: this.props,
-          folders: this.folders,
-        }
-      );
+      // this.fs.copyTpl(
+      //   this.templatePath('test/pegakit-component.scss'),
+      //   this.destinationPath(this.folders.src + this.folders.test + '/' + '/pegakit-' + this.props.names.kebabcase.plural + '.scss'),
+      //   {
+      //     props: this.props,
+      //     folders: this.folders,
+      //   }
+      // );
     },
 
-    styleguide: function() {
-      if (this.props.twig) {
-        this.fs.copyTpl(
-          this.templatePath('styleguide/index.html.twig'),
-          this.destinationPath(this.folders.styleguide + '/' + this.props.names.kebabcase.plural + '-styleguide.html.twig'),
-          {
-            props: this.props,
-            folders: this.folders,
-          }
-        );
-      } else {
-        this.fs.copyTpl(
-          this.templatePath('styleguide/index.html'),
-          this.destinationPath(this.folders.styleguide + '/' + this.props.names.kebabcase.plural + '-styleguide.html'),
-          {
-            props: this.props,
-            folders: this.folders,
-          }
-        );
-      }
-
-      this.fs.copyTpl(
-        this.templatePath('styleguide/style.scss'),
-        this.destinationPath(this.folders.styleguide + '/' + this.props.names.kebabcase.plural + '-styleguide.scss'),
-        {
-          props: this.props,
-          folders: this.folders,
-        }
-      );
-    },
+    // styleguide: function() {
+    //   if (this.props.twig) {
+    //     this.fs.copyTpl(
+    //       this.templatePath('styleguide/index.html.twig'),
+    //       this.destinationPath(this.folders.src + this.folders.demo + '/' + this.props.names.kebabcase.plural + '-styleguide.html.twig'),
+    //       {
+    //         props: this.props,
+    //         folders: this.folders,
+    //       }
+    //     );
+    //   } else {
+    //     this.fs.copyTpl(
+    //       this.templatePath('styleguide/index.html'),
+    //       this.destinationPath(this.folders.demo + '/' + this.props.names.kebabcase.plural + '-styleguide.html'),
+    //       {
+    //         props: this.props,
+    //         folders: this.folders,
+    //       }
+    //     );
+    //   }
+    // 
+    //   this.fs.copyTpl(
+    //     this.templatePath('styleguide/style.scss'),
+    //     this.destinationPath(this.folders.demo + '/' + this.props.names.kebabcase.plural + '-styleguide.scss'),
+    //     {
+    //       props: this.props,
+    //       folders: this.folders,
+    //     }
+    //   );
+    // },
 
     bower: function() {
       this.fs.copyTpl(
         this.templatePath('bower/bower.json'),
-        this.destinationPath('bower.json'),
+        this.destinationPath(this.folders.src + '/' + 'bower.json'),
         {
           props: this.props,
           folders: this.folders,
         }
       );
 
-      this.fs.copyTpl(
-        this.templatePath('bower/.bowerrc'),
-        this.destinationPath('.bowerrc'),
-        {
-          props: this.props,
-          folders: this.folders,
-        }
-      );
+      // this.fs.copyTpl(
+      //   this.templatePath('bower/.bowerrc'),
+      //   this.destinationPath('.bowerrc'),
+      //   {
+      //     props: this.props,
+      //     folders: this.folders,
+      //   }
+      // );
     },
 
     readme: function() {
       this.fs.copyTpl(
         this.templatePath('readme/README.md'),
-        this.destinationPath('README.md'),
+        this.destinationPath(this.folders.src + '/' + 'README.md'),
         {
           props: this.props,
           folders: this.folders,
@@ -415,7 +399,7 @@ module.exports = yeoman.Base.extend({
     npm: function() {
       this.fs.copyTpl(
         this.templatePath('npm/package.json'),
-        this.destinationPath('package.json'),
+        this.destinationPath(this.folders.src + '/' + 'package.json'),
         {
           props: this.props,
           folders: this.folders,
@@ -424,28 +408,31 @@ module.exports = yeoman.Base.extend({
 
       this.fs.copy(
         this.templatePath('npm/.npmignore'),
-        this.destinationPath('.npmignore')
+        this.destinationPath(this.folders.src + '/' + '.npmignore')
       );
     },
 
-    gulp: function() {
-      this.fs.copyTpl(
-        this.templatePath('gulp/gulpfile.babel.js'),
-        this.destinationPath('gulpfile.babel.js'),
-        {
-          props: this.props,
-          folders: this.folders,
-        }
-      );
-
-      this.fs.copy(
-        this.templatePath('gulp/.babelrc'),
-        this.destinationPath('.babelrc')
-      );
-    },
+    // gulp: function() {
+    //   this.fs.copyTpl(
+    //     this.templatePath('gulp/gulpfile.babel.js'),
+    //     this.destinationPath('gulpfile.babel.js'),
+    //     {
+    //       props: this.props,
+    //       folders: this.folders,
+    //     }
+    //   );
+    // 
+    //   this.fs.copy(
+    //     this.templatePath('gulp/.babelrc'),
+    //     this.destinationPath('.babelrc')
+    //   );
+    // },
   },
 
   install: function () {
+    var elementDir = process.cwd() + '/' + this.folders.src;
+    process.chdir(elementDir);
+    
     var npmDevDependencies = [
       'gulp',
       'gulp-size',

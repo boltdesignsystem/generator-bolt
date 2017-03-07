@@ -14,6 +14,11 @@ module.exports = function() {
       .replace(/\s/g, '')
       .replace(/^(.)/, function($1) { return $1.toUpperCase(); });
   }
+  
+  config.toSnakeCase = function(str) {
+    return str
+      .replace(/\s/g, '_');
+  }
 
   config.toKebabCase = function(str) {
     return str

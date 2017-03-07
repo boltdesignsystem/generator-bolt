@@ -1,0 +1,2 @@
+<%= props.names.kebabcase.default %>:
+  title: "Default <%= props.names.kebabcase.default %> text!"
