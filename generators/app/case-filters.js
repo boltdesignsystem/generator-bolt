@@ -17,7 +17,8 @@ module.exports = function() {
   
   config.toSnakeCase = function(str) {
     return str
-      .replace(/\s/g, '_');
+      .replace(/\s/g, '_')
+      .replace('-', '_');
   }
 
   config.toKebabCase = function(str) {

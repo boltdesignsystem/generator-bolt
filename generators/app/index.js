@@ -160,10 +160,10 @@ module.exports = yeoman.Base.extend({
 
       {
         type: 'input',
-        name: 'patternUrl',
+        name: 'url',
         message: 'What is the url of the repository ?',
         default: function(answers) {
-          return 'https://github.com/pega-digital/pegakit/tree/master/source/_patterns/' + this.patternType + '/' + this.names.lowercase.plural;
+          return 'https://github.com/pega-digital/pegakit/tree/master/source/_patterns/' + this.patternType + '/' + this.names.lowercase.default;
         }.bind(this),
         validate: function(input) {
           if (typeof input !== 'string' || input.length === 0) {
@@ -180,7 +180,7 @@ module.exports = yeoman.Base.extend({
         name: 'packageName',
         message: 'What\'s the name of your future packages (for bower/npm/yarn) ?',
         default: function(answers) {
-          return 'pegakit-' + this.names.kebabcase.plural;
+          return 'pegakit-' + this.names.kebabcase.default;
         }.bind(this),
         // @TODO check with bower and npm API if names are availables
         validate: function(input) {
@@ -263,11 +263,11 @@ module.exports = yeoman.Base.extend({
   writing: {
     scss: function() {
       
-      this.folders.src = this.folders.src + '/' + this.patternType + '/' + this.props.names.kebabcase.plural + '/';
+      this.folders.src = this.folders.src + '/' + this.patternType + '/' + this.props.names.kebabcase.default + '/';
       
       this.fs.copyTpl(
         this.templatePath('scss/component.scss'),
-        this.destinationPath(this.folders.src + '/' + '_components.' + this.props.names.kebabcase.plural + '.scss'),
+        this.destinationPath(this.folders.src + '/' + '_components.' + this.props.names.kebabcase.default + '.scss'),
         { props: this.props }
       );
 
@@ -287,7 +287,7 @@ module.exports = yeoman.Base.extend({
       if (this.props.javascript) {
         this.fs.copyTpl(
           this.templatePath('javascript/component.js'),
-          this.destinationPath(this.folders.src + '/' + this.props.names.kebabcase.plural + '.js'),
+          this.destinationPath(this.folders.src + '/' + this.props.names.kebabcase.default + '.js'),
           { props: this.props }
         );
 
