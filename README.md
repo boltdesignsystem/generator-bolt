@@ -1,4 +1,6 @@
 # generator-pegakit [![NPM version][npm-image]][npm-url] [![Build Status][travis-image]][travis-url] [![Dependency Status][daviddm-image]][daviddm-url] [![Coverage percentage][coveralls-image]][coveralls-url]
+
+[![Greenkeeper badge](https://badges.greenkeeper.io/pega-digital/generator-pegakit.svg)](https://greenkeeper.io/)
 > A Yeoman generator for creating standalone PegaKit components
 
 ## Installation
