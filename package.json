@@ -1,5 +1,5 @@
 {
-  "name": "generator-pegakit",
+  "name": "generator-bolt",
   "version": "0.1.0",
   "description": "A yeoman generator for creating pegakit components",
   "homepage": "https://github.com/pega-digital/generator-pegakit",
