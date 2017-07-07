@@ -1,8 +1,8 @@
 {
   "name": "generator-bolt",
   "version": "0.1.0",
-  "description": "A yeoman generator for creating pegakit components",
-  "homepage": "https://github.com/pega-digital/generator-pegakit",
+  "description": "A yeoman generator for creating Bolt components",
+  "homepage": "https://github.com/pega-digital/generator-bolt",
   "author": {
     "name": "Salem Ghoweri",
     "email": "salem.ghoweri@pega.com"
@@ -12,7 +12,9 @@
   ],
   "main": "generators/index.js",
   "keywords": [
-    "pegakit",
+    "bolt",
+    "bolt design system",
+    "generator",
     "components",
     "twig",
     "yeoman-generator"
@@ -44,7 +46,7 @@
       "mocha": true
     }
   },
-  "repository": "pega-digital/generator-pegakit",
+  "repository": "pega-digital/generator-bolt",
   "scripts": {
     "prepublish": "gulp prepublish",
     "test": "gulp"
