@@ -1,5 +1,5 @@
 {
-  "name": "@bolt/generator-bolt",
+  "name": "@bolt/generator-cli",
   "version": "0.1.0",
   "description": "A yeoman generator for creating Bolt components",
   "homepage": "https://github.com/pega-digital/generator-bolt",
@@ -51,5 +51,8 @@
     "prepublish": "gulp prepublish",
     "test": "gulp"
   },
-  "license": "MIT"
+  "license": "MIT",
+  "publishConfig": {
+    "access": "public"
+  }
 }
