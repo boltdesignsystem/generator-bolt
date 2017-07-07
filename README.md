@@ -1,19 +1,19 @@
-# generator-pegakit [![NPM version][npm-image]][npm-url] [![Build Status][travis-image]][travis-url] [![Dependency Status][daviddm-image]][daviddm-url] [![Coverage percentage][coveralls-image]][coveralls-url]
-> A Yeoman generator for creating standalone PegaKit components
+# generator-bolt [![NPM version][npm-image]][npm-url] [![Build Status][travis-image]][travis-url] [![Dependency Status][daviddm-image]][daviddm-url] [![Coverage percentage][coveralls-image]][coveralls-url]
+> A Yeoman generator for creating standalone Bolt Design System components
 
 ## Installation
 
-First, install [Yeoman](http://yeoman.io) and generator-pegakit using [npm](https://www.npmjs.com/) (we assume you have pre-installed [node.js](https://nodejs.org/)).
+First, install [Yeoman](http://yeoman.io) and generator-bolt using [npm](https://www.npmjs.com/) (we assume you have pre-installed [node.js](https://nodejs.org/)).
 
 ```bash
 npm install -g yo
-npm install -g generator-pegakit
+npm install -g generator-bolt
 ```
 
 Then generate your new project:
 
 ```bash
-yo pegakit
+yo bolt
 ```
 
 ## Getting To Know Yeoman
