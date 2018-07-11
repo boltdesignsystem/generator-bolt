@@ -22,8 +22,9 @@
   "dependencies": {
     "chalk": "^1.0.0",
     "pluralize": "^4.0.0",
-    "yeoman-generator": "^0.23.0",
-    "yosay": "^1.0.0"
+    "yeoman-generator": "^2.0.5",
+    "yosay": "^1.0.0",
+    "snyk": "^1.88.2"
   },
   "devDependencies": {
     "yeoman-test": "^1.0.0",
@@ -49,10 +50,13 @@
   "repository": "pega-digital/generator-bolt",
   "scripts": {
     "prepublish": "gulp prepublish",
-    "test": "gulp"
+    "test": "gulp",
+    "snyk-protect": "snyk protect",
+    "prepare": "npm run snyk-protect"
   },
   "license": "MIT",
   "publishConfig": {
     "access": "public"
-  }
+  },
+  "snyk": true
 }
